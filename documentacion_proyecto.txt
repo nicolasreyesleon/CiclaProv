@@ -1,0 +1,137 @@
+===============================
+DOCUMENTACIÓN API REST - CICLARO
+===============================
+
+📌 DESCRIPCIÓN
+-------------
+Ciclaro_API es un backend desarrollado en Django REST Framework para la gestión integral de un taller de bicicletas. Incluye funcionalidades para clientes, bicicletas, citas, ventas, reparaciones, repuestos y contabilidad.
+
+El acceso a la API está protegido por autenticación JWT (JSON Web Tokens).
+
+
+🔐 AUTENTICACIÓN
+----------------
+Para acceder a los endpoints protegidos, debes autenticarte con un usuario registrado.
+
+1. Obtener el token:
+   POST /api/token/
+
+   Body (JSON):
+   {
+       "username": "tu_usuario",
+       "password": "tu_contraseña"
+   }
+
+   Respuesta:
+   {
+       "access": "token_jwt",
+       "refresh": "refresh_token"
+   }
+
+2. Usar el token en cada solicitud:
+   Header:
+   Authorization: Bearer token_jwt
+
+
+📁 ENDPOINTS DISPONIBLES
+------------------------
+
+CLIENTES
+--------
+GET     /api/clientes/
+POST    /api/clientes/
+GET     /api/clientes/{id}/
+PUT     /api/clientes/{id}/
+DELETE  /api/clientes/{id}/
+
+BICICLETAS
+----------
+GET     /api/bicicletas/
+POST    /api/bicicletas/
+GET     /api/bicicletas/{id}/
+PUT     /api/bicicletas/{id}/
+DELETE  /api/bicicletas/{id}/
+
+CITAS
+-----
+GET     /api/citas/
+POST    /api/citas/
+GET     /api/citas/{id}/
+PUT     /api/citas/{id}/
+DELETE  /api/citas/{id}/
+
+VENTAS
+------
+GET     /api/ventas/
+POST    /api/ventas/
+GET     /api/ventas/{id}/
+PUT     /api/ventas/{id}/
+DELETE  /api/ventas/{id}/
+→ Al crear una venta, se genera automáticamente un ingreso contable.
+
+REPARACIONES
+------------
+GET     /api/reparaciones/
+POST    /api/reparaciones/
+GET     /api/reparaciones/{id}/
+PUT     /api/reparaciones/{id}/
+DELETE  /api/reparaciones/{id}/
+→ Al crear una reparación, también se genera un ingreso contable automático.
+
+REPUESTOS
+---------
+GET     /api/repuestos/
+POST    /api/repuestos/
+GET     /api/repuestos/{id}/
+PUT     /api/repuestos/{id}/
+DELETE  /api/repuestos/{id}/
+
+CONTABILIDAD
+------------
+GET     /api/movimientos/
+POST    /api/movimientos/
+GET     /api/movimientos/{id}/
+→ Puedes registrar egresos manuales
+
+📊 REPORTES
+-----------
+GET     /api/resumen/
+GET     /api/resumen/?desde=YYYY-MM-DD&hasta=YYYY-MM-DD
+
+→ Retorna resumen de ingresos, egresos y saldo
+→ Se actualiza automáticamente al registrar ventas o reparaciones
+
+Ejemplo de respuesta:
+
+{
+    "ingresos": 250000,
+    "egresos": 50000,
+    "saldo": 200000,
+    "desde": "2025-05-01",
+    "hasta": "2025-05-17"
+}
+
+
+🛡️ SEGURIDAD
+------------
+Todos los endpoints (excepto el login) están protegidos con autenticación JWT.
+Solo usuarios autenticados pueden acceder a los datos.
+
+
+📦 GENERAR ARCHIVO DE DEPENDENCIAS
+----------------------------------
+Para guardar las librerías usadas por el proyecto, genera un archivo `requirements.txt`:
+
+1. Abre PowerShell en la carpeta del proyecto.
+2. Activa el entorno virtual:
+   .\venv\Scripts\Activate
+3. Ejecuta:
+   pip freeze > requirements.txt
+
+Para instalar esas dependencias en otro equipo o entorno:
+
+   pip install -r requirements.txt
+
+============================
+Fin de la Documentación
+============================
